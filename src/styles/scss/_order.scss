@@ -1,0 +1,47 @@
+@import 'shared';
+
+.order__section {
+  width: 20%;
+}
+
+.order {
+  .order__checkbox, .order__name-input {
+    display: flex;
+    flex-direction: row;
+  }
+  .order__details {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #eee;
+
+    .order__details-section {
+      width: 50%;
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+
+      .order__details-title {
+        p {
+          font-weight: bold;
+        }
+      }
+
+      .order__details-body {
+        margin-left: 10px;
+        width: 100%;
+
+        p {
+          margin-bottom: 2px;
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
