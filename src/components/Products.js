@@ -31,11 +31,10 @@ const Products = (
             <p>Stock</p>
           </div>
           <div className='product__section section--top-right'>
-            <p>Actions</p>
             <a href='/toggle-form' onClick={handleToggleForm}>{(formIsVisible ? '-' : '+')}</a>
           </div>
         </div>
-        {formIsVisible && <NewProduct handleCreate={handleCreateProduct} toggleForm={handleToggleForm}/>}
+        <NewProduct handleCreate={handleCreateProduct} toggleForm={handleToggleForm} formIsVisible={formIsVisible} />
         {products.map((product, index) => {
           return <Product
             product={product}

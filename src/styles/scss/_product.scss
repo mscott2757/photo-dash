@@ -1,5 +1,9 @@
 @import 'shared';
 
+.product--hidden {
+  display: none;
+}
+
 .product__section {
   width: 33.3%;
 }

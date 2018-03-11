@@ -6,12 +6,14 @@ import {
   REQUEST_DELETE_ORDER,
   RECEIVE_DELETE_ORDER,
   REQUEST_CREATE_ORDER,
-  RECEIVE_CREATE_ORDER
+  RECEIVE_CREATE_ORDER,
+  TOGGLE_NEW_ORDER
 } from './../actions/orders';
 
 const orders = (state = {
   isFetching: false,
-  items: []
+  items: [],
+  formIsVisible: false
 }, action) => {
   switch (action.type) {
     case REQUEST_ORDERS:
@@ -72,6 +74,11 @@ const orders = (state = {
         ...state,
         isFetching: false,
         items: [ action.order, ...state.items ]
+      }
+    case TOGGLE_NEW_ORDER:
+      return {
+        ...state,
+        formIsVisible: !state.formIsVisible
       }
     default:
       return state;

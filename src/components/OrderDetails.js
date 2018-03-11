@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OrderDetails = ({ handleChange, edit, textInput, notesInput, order }) => {
+const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order }) => {
     let notesSection, addressSection = null;
     if (edit) {
       notesSection = (

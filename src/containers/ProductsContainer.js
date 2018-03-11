@@ -9,7 +9,7 @@ import {
   updateProduct,
   deleteProduct,
   createProduct,
-  toggleFormVisibility
+  toggleNewProduct
 } from '../actions/products';
 
 const mapStateToProps = ({ products }) => {
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleToggleForm: (e) => {
       e.preventDefault();
-      dispatch(toggleFormVisibility());
+      dispatch(toggleNewProduct());
     }
   };
 }

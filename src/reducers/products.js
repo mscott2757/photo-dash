@@ -7,7 +7,7 @@ import {
   RECEIVE_DELETE_PRODUCT,
   REQUEST_CREATE_PRODUCT,
   RECEIVE_CREATE_PRODUCT,
-  TOGGLE_FORM_VISIBILITY
+  TOGGLE_NEW_PRODUCT
 } from '../actions/products';
 
 const products = (state = {
@@ -17,10 +17,7 @@ const products = (state = {
 }, action) => {
   switch (action.type) {
     case REQUEST_PRODUCTS:
-      return {
-        ...state,
-        isFetching: true,
-      }
+      return { ...state, isFetching: true, }
     case RECEIVE_PRODUCTS:
       return {
         ...state,
@@ -63,21 +60,15 @@ const products = (state = {
         items: state.items.filter((product) => product._id !== action.id)
       }
     case REQUEST_CREATE_PRODUCT:
-      return {
-        ...state,
-        isFetching: true
-      }
+      return { ...state, isFetching: true }
     case RECEIVE_CREATE_PRODUCT:
       return {
         ...state,
         isFetching: false,
         items: [ ...state.items, action.product ]
       }
-    case TOGGLE_FORM_VISIBILITY:
-      return {
-        ...state,
-        formIsVisible: !state.formIsVisible
-      }
+    case TOGGLE_NEW_PRODUCT:
+      return { ...state, formIsVisible: !state.formIsVisible }
     default:
       return state;
   }

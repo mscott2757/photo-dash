@@ -51,15 +51,16 @@ textarea {
 
 button {
   appearance: none;
-  border-radius: 2px;
-  border: 1px solid #eee;
-  padding: 8px;
+  border: none;
+  padding: 5px;
+  background-color: transparent;
 
   &:focus {
     outline: none;
   }
 
   &:hover {
-    background-color: #eee;
+    opacity: 0.6;
+    cursor: pointer;
   }
 }

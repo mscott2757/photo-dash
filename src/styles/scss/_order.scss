@@ -4,6 +4,10 @@
   width: 20%;
 }
 
+.order--hidden {
+  display: none;
+}
+
 .order {
   .order__checkbox, .order__name-input {
     display: flex;

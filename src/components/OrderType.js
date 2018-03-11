@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrderType = ({ edit, localInput, local }) => {
+const OrderType = ({ edit = true, localInput, local }) => {
   if (!edit) {
     return <p>{(local ? 'local' : 'mail')}</p>;
   } else {

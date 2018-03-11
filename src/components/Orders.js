@@ -1,8 +1,9 @@
 import React from 'react';
 import Order from './Order';
+import NewOrder from './NewOrder';
 
-const Orders = ({ orders, isFetching, handleUpdateOrder }) => {
-
+const Orders = ({ orders, products, isFetching, formIsVisible = true, handleDeleteOrder,
+                handleUpdateOrder, handleCreateOrder, handleToggleForm }) => {
   let body = null;
   if (isFetching) {
     body = (
@@ -26,16 +27,23 @@ const Orders = ({ orders, isFetching, handleUpdateOrder }) => {
           <div className='order__section'>
             <p>Status</p>
           </div>
-          <div className='order__section'>
-            <p>Actions</p>
+          <div className='order__section section--top-right'>
+            <a href='/toggle-form' onClick={handleToggleForm}>{(formIsVisible ? '-' : '+')}</a>
           </div>
         </div>
+        <NewOrder
+          handleCreate={handleCreateOrder}
+          toggleForm={handleToggleForm}
+          products={products}
+          formIsVisible={formIsVisible}
+        />
         {orders.map((order, index) => {
           return <Order
             key={order._id}
             order={order}
             odd={index % 2 === 0}
             handleUpdate={handleUpdateOrder(order._id)}
+            handleRemove={handleDeleteOrder(order._id)}
           />
         })}
       </div>

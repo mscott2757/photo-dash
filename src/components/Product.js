@@ -40,10 +40,10 @@ class Product extends Component {
       actionsSection = (
         <div className='actions'>
           <div className='action'>
-            <button onClick={this.handleSubmit}>save</button>
+            <button onClick={this.handleSubmit}><i className="fa fa-save"></i></button>
           </div>
           <div className='action'>
-            <button onClick={this.toggleEdit}>cancel</button>
+            <button onClick={this.toggleEdit}><i className="fa fa-times"></i></button>
           </div>
         </div>
       );
@@ -53,10 +53,10 @@ class Product extends Component {
       actionsSection = (
         <div className='actions'>
           <div className='action'>
-            <button onClick={this.toggleEdit}>edit</button>
+            <button onClick={this.toggleEdit}><i className="fa fa-edit"></i></button>
           </div>
           <div className='action'>
-            <button onClick={handleDelete}>remove</button>
+            <button onClick={handleDelete}><i className="fa fa-trash"></i></button>
           </div>
         </div>
       );

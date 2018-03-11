@@ -9,13 +9,13 @@ class Order extends Component {
     super(props);
     let {
       name: { first, last },
-      notes, address, city, state, zip, done, local
+      notes, address, city, state, zip, local, done
     } = props.order;
     this.state = {
       expanded: false,
       edit: false,
       data: {
-        first, last, notes, address, city, state, zip, done, local,
+        first, last, notes, done, address, city, state, zip, local,
       }
     }
   }
@@ -38,6 +38,7 @@ class Order extends Component {
   }
 
   handleComplete= () => {
+    console.log('complete called');
     this.props.handleUpdate({ ...this.state.data, product: this.props.order.product._id, done: true });
   }
 
@@ -75,7 +76,8 @@ class Order extends Component {
       toggleEdit={this.toggleEdit}
       toggleDetails={this.toggleDetails}
       handleSubmit={this.handleSubmit}
-      handleChange={this.handleComplete}
+      handleComplete={this.handleComplete}
+      handleRemove={this.props.handleRemove}
     />;
 
     let content = null;

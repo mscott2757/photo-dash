@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrderName = ({ edit, textInput, name: { first, last } }) => {
+const OrderName = ({ edit = true, textInput, name: { first, last } }) => {
   if (!edit) {
     return <p>{`${first} ${last}`}</p>;
   } else {

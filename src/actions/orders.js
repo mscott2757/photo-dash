@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../shared';
+import { updateProduct } from './products';
+import { resHandler, errHandler } from './shared';
 
 export const REQUEST_ORDERS = 'REQUEST_ORDERS';
 export function requestOrders() {
@@ -19,13 +21,9 @@ export function receiveOrders(json) {
 export function fetchOrders() {
   return (dispatch) => {
     dispatch(requestOrders());
-
-    return axios.get(`${API_ENDPOINT}/orders`).then(
-      res => res.data,
-      err => {
-        console.log(err)
-      }
-    ).then(json => {
+    return axios.get(`${API_ENDPOINT}/orders`)
+    .then(resHandler, errHandler)
+    .then(json => {
       dispatch(receiveOrders(json))
     });
   }
@@ -47,12 +45,9 @@ export function receiveUpdateOrder(json) {
 export function updateOrder(id, data) {
   return (dispatch) => {
     dispatch(requestUpdateOrder(id));
-    return axios.put(`${API_ENDPOINT}/orders/${id}`, data).then(
-      res => res.data,
-      err => {
-        console.log(err);
-      }
-    ).then(json => {
+    return axios.put(`${API_ENDPOINT}/orders/${id}`, data)
+    .then(resHandler, errHandler)
+    .then(json => {
       dispatch(receiveUpdateOrder(json));
     });
   }
@@ -71,12 +66,9 @@ export function receiveDeleteOrder(id) {
 export function deleteOrder(id) {
   return dispatch => {
     dispatch(requestDeleteOrder(id));
-    return axios.delete(`${API_ENDPOINT}/orders/${id}`).then(
-      res => res.data,
-      err => {
-        console.log(err);
-      }
-    ).then(json => {
+    return axios.delete(`${API_ENDPOINT}/orders/${id}`)
+    .then(resHandler, errHandler)
+    .then(json => {
       dispatch(receiveDeleteOrder(id));
     });
   }
@@ -96,16 +88,21 @@ export function receiveCreateOrder(json) {
 }
 
 export function createOrder(data) {
+  let { product } = data;
   return dispatch => {
     dispatch(requestCreateOrder());
-    return axios.post(`${API_ENDPOINT}/orders`, data).then(
-      res => res.data,
-      err => {
-        console.log(err);
-      }
-    ).then((json) => {
+    return axios.post(`${API_ENDPOINT}/orders`, data)
+    .then(resHandler, errHandler)
+    .then((json) => {
       dispatch(receiveCreateOrder(json));
+      updateProduct(product);
     });
   }
+}
+
+
+export const TOGGLE_NEW_ORDER = 'TOGGLE_NEW_ORDER';
+export function toggleNewOrder() {
+  return { type: TOGGLE_NEW_ORDER }
 }
 
