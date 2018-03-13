@@ -10,40 +10,50 @@
 
 .order {
   position: relative;
+
   .order__checkbox, .order__name-input {
     display: flex;
     flex-direction: row;
   }
-  .order__details {
-    display: flex;
-    flex-direction: row;
+
+  .order__details-wrapper {
     border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
-    .order__details-section {
-      width: 50%;
-      padding: 10px;
-      display: flex;
-      flex-direction: row;
+    .order__details {
+      width: 75%;
 
-      &:first-child {
-        border-right: 1px solid #eee;
-      }
-
-      .order__details-title {
-        p {
-          font-weight: bold;
-        }
-      }
-
-      .order__details-body {
-        margin-left: 10px;
+      .order__details-section {
         width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
 
-        p {
-          margin-bottom: 2px;
+        .order__details-title {
+          width: 25%;
+          text-align: right;
 
-          &:last-child {
-            margin: 0;
+          &--edit {
+            margin-top: 8px;
+          }
+
+          p {
+            font-weight: bold;
+          }
+        }
+
+        .order__details-body {
+          margin-left: 10px;
+          width: 75%;
+
+          p {
+            margin-bottom: 2px;
+
+            &:last-child {
+              margin: 0;
+            }
           }
         }
       }

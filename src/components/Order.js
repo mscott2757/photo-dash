@@ -14,12 +14,8 @@ class Order extends Component {
       notes, address, city, state, zip, local, done
     } = props.order;
     this.state = {
-      expanded: false,
-      edit: false,
-      confirm: false,
-      data: {
-        first, last, notes, done, address, city, state, zip, local,
-      }
+      data: { first, last, notes, done, address, city, state, zip, local },
+      expanded: false, edit: false, confirm: false
     }
   }
 
@@ -45,22 +41,24 @@ class Order extends Component {
   }
 
   handleComplete= () => {
-    console.log('complete called');
     this.props.handleUpdate({ ...this.state.data, product: this.props.order.product._id, done: true });
   }
 
   handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     this.setState({
-      data: {
-        ...this.state.data,
-        [e.target.name]: value
-      }
+      data: { ...this.state.data, [e.target.name]: value }
     });
   }
 
   textInput = (field) => {
-    return <input type='text' placeholder={field} name={field} value={this.state.data[field]} onChange={this.handleChange} />
+    return <input
+      type='text'
+      placeholder={field}
+      name={field}
+      value={this.state.data[field]}
+      onChange={this.handleChange}
+    />;
   }
 
   notesInput = () => <textarea name='notes' value={this.state.data.notes} onChange={this.handleChange} />;
@@ -77,20 +75,20 @@ class Order extends Component {
     const { handleChange, textInput, notesInput, toggleConfirm, toggleDetails,
       toggleEdit, handleSubmit, handleComplete, localInput } = this;
 
-    let productSection = <p>{productName}</p>;
-    let statusSection = <p>{(done ? 'completed' : 'in progress')}</p>
-    let nameSection = <OrderName {...{ edit, name, textInput }} />;
-    let typeSection = <OrderType {...{ edit, local, localInput }} />;
-
-    const actionsProps = { done, edit, expanded, toggleDetails, toggleEdit,
-      handleSubmit, handleComplete, toggleConfirm }
-    let actionsSection = <OrderActions {...actionsProps} />;
-
     let content = null;
     if (isFetching) {
       content = <ContentFetching isFetching={isFetching} />
     } else {
-      let sections = [ nameSection, productSection, typeSection, statusSection, actionsSection ];
+      const actionsProps = {
+        done, edit, expanded, toggleDetails, toggleEdit, handleSubmit, handleComplete, toggleConfirm
+      };
+      const sections = [
+        <OrderName {...{ edit, name, textInput }} />,
+        <p>{productName}</p>,
+        <OrderType {...{ edit, local, localInput }} />,
+        <p>{(done ? 'completed' : 'in progress')}</p>,
+        <OrderActions {...actionsProps} />
+      ];
       content = (
         <div className='row'>
           {sections.map((section, index) => <div key={index} className='section order__section'>{section}</div>)}

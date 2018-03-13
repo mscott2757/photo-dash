@@ -17,7 +17,7 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
         </div>
       );
     } else {
-      let { local, address, city, notes, state, zip } = order;
+      let { address, city, notes, state, zip } = order;
       notesSection = (
         <div className='order__details-body'>
           <p>{notes}</p>
@@ -25,26 +25,27 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
       );
       addressSection = (
         <div className='order__details-body'>
-          <p>{(local ? '' : address)}</p>
-          <p>{(local ? '' : `${city}, ${state}, ${zip}`)}</p>
+          <p>{`${address}, ${city}, ${state}, ${zip}`}</p>
         </div>
       );
     }
 
     if (expanded) {
       return (
-        <div className='order__details'>
-          <div className='order__details-section'>
-            <div className='order__details-title'>
-              <p>Notes</p>
+        <div className='order__details-wrapper'>
+          <div className='order__details'>
+            <div className='order__details-section'>
+              <div className={'order__details-title ' + (edit ? 'order__details-title--edit' : '')}>
+                <p>Notes</p>
+              </div>
+              {notesSection}
             </div>
-            {notesSection}
-          </div>
-          <div className='order__details-section'>
-            <div className='order__details-title'>
-              <p>Address</p>
+            <div className='order__details-section'>
+              <div className={'order__details-title ' + (edit ? 'order__details-title--edit' : '')}>
+                <p>Address</p>
+              </div>
+              {addressSection}
             </div>
-            {addressSection}
           </div>
         </div>
       );

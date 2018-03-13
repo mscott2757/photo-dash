@@ -27,10 +27,7 @@ class NewOrder extends Component {
   handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     this.setState({
-      data: {
-        ...this.state.data,
-        [e.target.name]: value
-      }
+      data: { ...this.state.data, [e.target.name]: value }
     }, () => {
       console.log(this.state.data);
     });
@@ -40,12 +37,18 @@ class NewOrder extends Component {
     this.props.handleCreate(this.state.data);
   }
 
-  toggleEdit = () => {
-
+  textInput = (field) => {
+    return <input
+      type='text'
+      placeholder={field}
+      name={field}
+      value={this.state.data[field]}
+      onChange={this.handleChange}
+    />;
   }
 
-  textInput = (field) => {
-    return <input type='text' placeholder={field} name={field} value={this.state.data[field]} onChange={this.handleChange} />
+  productOptions = () => {
+    return this.props.products.filter(({ stock }) => stock > 0 );
   }
 
   notesInput = () => <textarea name='notes' value={this.state.data.notes} onChange={this.handleChange} />;
@@ -54,29 +57,25 @@ class NewOrder extends Component {
 
   render() {
     let { first, last, local, product } = this.state.data;
-    let nameSection = <OrderName name={{first, last}} textInput={this.textInput} />;
-    let productSection = (
-      <select name='product' value={product} onChange={this.handleChange}>
-        {this.props.products.map(({ _id, name }) =>  <option value={_id} key={_id}>{name}</option> )}
-      </select>
-    );
-    let typeSection = <OrderType local={local} localInput={this.localInput} />;
-    let statusSection = <p>in progress</p>;
-    let actionsSection = <OrderActions handleSubmit={this.handleSubmit} toggleEdit={this.props.toggleForm} />;
-
-    const sections = [nameSection, productSection, typeSection, statusSection, actionsSection];
+    const { textInput, localInput, notesInput, handleSubmit, handleChange } = this;
+    const { toggleForm, formIsVisible } = this.props;
+    const sections = [
+      <OrderName {...{ name: { first, last }, textInput }} />,
+      <select name='product' value={product} onChange={handleChange}>
+        {this.productOptions().map(({ _id, name }) =>  <option value={_id} key={_id}>{name}</option> )}
+      </select>,
+      <OrderType {...{ local, localInput }} />,
+      <p>in progress</p>,
+      <OrderActions {...{ handleSubmit, toggleEdit: toggleForm }} />
+    ];
     return (
-      <div className={'order' + (this.props.formIsVisible ? '' : ' order--hidden')}>
+      <div className={'order' + (formIsVisible ? '' : ' order--hidden')}>
         <div>
           <div className='row'>
             {sections.map((section, index) => <div key={index} className='section order__section'>{section}</div> )}
           </div>
         </div>
-        <OrderDetails
-          handleChange={this.handleChange}
-          textInput={this.textInput}
-          notesInput={this.notesInput}
-        />
+        <OrderDetails {...{ handleChange, textInput, notesInput }} />
       </div>
     )
   }
