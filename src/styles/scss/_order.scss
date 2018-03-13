@@ -9,6 +9,7 @@
 }
 
 .order {
+  position: relative;
   .order__checkbox, .order__name-input {
     display: flex;
     flex-direction: row;

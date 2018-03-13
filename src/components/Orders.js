@@ -1,49 +1,32 @@
 import React from 'react';
 import Order from './Order';
 import NewOrder from './NewOrder';
+import OrderHeader from './OrderHeader';
+import ContentFetching from './ContentFetching';
 
-const Orders = ({ orders, products, isFetching, formIsVisible = true, handleDeleteOrder,
-                handleUpdateOrder, handleCreateOrder, handleToggleForm }) => {
+const Orders = ({
+  orders, products, isFetching,
+  formIsVisible = true,
+  handleDeleteOrder, handleUpdateOrder, handleCreateOrder, handleToggleForm
+}) => {
   let body = null;
   if (isFetching) {
-    body = (
-      <div className='content--fetching'>
-        <i className='fa fa-circle-o-notch fa-spin'></i>
-      </div>
-    );
+    body = <ContentFetching />;
   } else {
+    const headerProps = { handleToggleForm, formIsVisible };
+    const newOrderProps = { handleCreate: handleCreateOrder, toggleForm: handleToggleForm, products, formIsVisible };
     body = (
       <div className='content'>
-        <div className='header'>
-          <div className='order__section'>
-            <p>Name</p>
-          </div>
-          <div className='order__section'>
-            <p>Product</p>
-          </div>
-          <div className='order__section'>
-            <p>Type</p>
-          </div>
-          <div className='order__section'>
-            <p>Status</p>
-          </div>
-          <div className='order__section section--top-right'>
-            <a href='/toggle-form' onClick={handleToggleForm}>{(formIsVisible ? '-' : '+')}</a>
-          </div>
-        </div>
-        <NewOrder
-          handleCreate={handleCreateOrder}
-          toggleForm={handleToggleForm}
-          products={products}
-          formIsVisible={formIsVisible}
-        />
+        <OrderHeader {...headerProps} />
+        <NewOrder {...newOrderProps} />
         {orders.map((order, index) => {
+          let { _id, product: { _id: productId }} = order;
           return <Order
-            key={order._id}
+            key={_id}
             order={order}
             odd={index % 2 === 0}
-            handleUpdate={handleUpdateOrder(order._id)}
-            handleRemove={handleDeleteOrder(order._id)}
+            handleUpdate={handleUpdateOrder(_id)}
+            handleDelete={handleDeleteOrder(_id, productId)}
           />
         })}
       </div>
@@ -53,9 +36,7 @@ const Orders = ({ orders, products, isFetching, formIsVisible = true, handleDele
   return (
     <div className='orders'>
       <h3>Orders</h3>
-      <div className='body'>
-        {body}
-      </div>
+      <div className='body'>{body}</div>
     </div>
   );
 }

@@ -63,13 +63,14 @@ export function receiveDeleteOrder(id) {
   return { type: RECEIVE_DELETE_ORDER, id }
 }
 
-export function deleteOrder(id) {
+export function deleteOrder(id, product) {
   return dispatch => {
     dispatch(requestDeleteOrder(id));
     return axios.delete(`${API_ENDPOINT}/orders/${id}`)
     .then(resHandler, errHandler)
     .then(json => {
       dispatch(receiveDeleteOrder(id));
+      dispatch(updateProduct(product));
     });
   }
 }
@@ -95,7 +96,8 @@ export function createOrder(data) {
     .then(resHandler, errHandler)
     .then((json) => {
       dispatch(receiveCreateOrder(json));
-      updateProduct(product);
+      dispatch(toggleNewOrder());
+      dispatch(updateProduct(product));
     });
   }
 }

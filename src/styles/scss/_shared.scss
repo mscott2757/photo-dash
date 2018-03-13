@@ -58,9 +58,34 @@ $grey: rgb(247, 247, 248);
   display: flex;
 }
 
+.confirmation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  &--odd {
+    background-color: $grey;
+  }
+
+  .confirmation__actions {
+    display: flex;
+    flex-direction: row;
+
+    p {
+      padding: 5px;
+    }
+  }
+}
+
 .row {
   flex-direction: row;
   padding: 10px;
+
 
   &--odd {
     background-color: $grey;

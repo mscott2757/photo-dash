@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DeleteConfirmation from './DeleteConfirmation';
 
 class Product extends Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class Product extends Component {
 
     this.state = {
       edit: false,
+      confirm: false,
       data: {
         name: this.props.product.name,
         stock: this.props.product.stock
@@ -15,6 +17,10 @@ class Product extends Component {
 
   toggleEdit = () => {
     this.setState({ edit: !this.state.edit });
+  }
+
+  toggleConfirm = () => {
+    this.setState({ confirm: !this.state.confirm });
   }
 
   handleChange = (e) => {
@@ -34,7 +40,8 @@ class Product extends Component {
   render() {
     const { product: { name, stock }, isFetching, handleDelete, odd } = this.props;
     let nameSection, stockSection, actionsSection = null;
-    if (this.state.edit) {
+    let { edit, confirm } = this.state;
+    if (edit) {
       nameSection = <input type='text' name='name' value={this.state.data.name} onChange={this.handleChange} />;
       stockSection = <input type='number' name='stock' value={this.state.data.stock} onChange={this.handleChange} />;
       actionsSection = (
@@ -56,7 +63,7 @@ class Product extends Component {
             <button onClick={this.toggleEdit}><i className="fa fa-edit"></i></button>
           </div>
           <div className='action'>
-            <button onClick={handleDelete}><i className="fa fa-trash"></i></button>
+            <button onClick={this.toggleConfirm}><i className="fa fa-trash"></i></button>
           </div>
         </div>
       );
@@ -78,7 +85,13 @@ class Product extends Component {
       );
     }
 
-    return content;
+    const confirmationProps = { odd, confirm, handleDelete, toggleConfirm: this.toggleConfirm };
+    return (
+      <div className='product'>
+        <DeleteConfirmation {...confirmationProps} />
+        {content}
+      </div>
+    );
   }
 }
 

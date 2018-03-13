@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order }) => {
+const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order, expanded = true }) => {
     let notesSection, addressSection = null;
     if (edit) {
       notesSection = (
@@ -31,22 +31,26 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order 
       );
     }
 
-    return (
-      <div className='order__details'>
-        <div className='order__details-section'>
-          <div className='order__details-title'>
-            <p>Notes</p>
+    if (expanded) {
+      return (
+        <div className='order__details'>
+          <div className='order__details-section'>
+            <div className='order__details-title'>
+              <p>Notes</p>
+            </div>
+            {notesSection}
           </div>
-          {notesSection}
-        </div>
-        <div className='order__details-section'>
-          <div className='order__details-title'>
-            <p>Address</p>
+          <div className='order__details-section'>
+            <div className='order__details-title'>
+              <p>Address</p>
+            </div>
+            {addressSection}
           </div>
-          {addressSection}
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
 }
 
 export default OrderDetails;

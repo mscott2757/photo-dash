@@ -35,9 +35,9 @@ const mapDispatchToProps = dispatch => {
       e.preventDefault();
       dispatch(toggleNewOrder());
     },
-    handleDeleteOrder: (id) => {
+    handleDeleteOrder: (id, product) => {
       return () => {
-        dispatch(deleteOrder(id));
+        dispatch(deleteOrder(id, product));
       }
     }
   }
