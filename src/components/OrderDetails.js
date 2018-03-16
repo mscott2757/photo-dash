@@ -1,8 +1,13 @@
 import React from 'react'
 
 const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order, expanded = true }) => {
-    let notesSection, addressSection = null;
+    let notesSection, addressSection, emailSection, trackingSection = null;
     if (edit) {
+      emailSection = (
+        <div className='order__details-body'>
+          {textInput('email')}
+        </div>
+      );
       notesSection = (
         <div className='order__details-body'>
           {notesInput()}
@@ -16,8 +21,18 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
           {textInput('zip')}
         </div>
       );
+      trackingSection = (
+        <div className='order__details-body'>
+          {textInput('tracking')}
+        </div>
+      );
     } else {
-      let { address, city, notes, state, zip } = order;
+      let { tracking, email, address, city, notes, state, zip } = order;
+      emailSection = (
+        <div className='order__details-body'>
+          <p>{email}</p>
+        </div>
+      );
       notesSection = (
         <div className='order__details-body'>
           <p>{notes}</p>
@@ -25,7 +40,12 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
       );
       addressSection = (
         <div className='order__details-body'>
-          <p>{`${address}, ${city}, ${state}, ${zip}`}</p>
+          <p>{[address, city, state, zip].filter((item) => item).join(', ')}</p>
+        </div>
+      );
+      trackingSection = (
+        <div className='order__details-body'>
+          <p>{tracking}</p>
         </div>
       );
     }
@@ -34,6 +54,12 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
       return (
         <div className='order__details-wrapper'>
           <div className='order__details'>
+            <div className='order__details-section'>
+              <div className={'order__details-title ' + (edit ? 'order__details-title--edit' : '')}>
+                <p>Email</p>
+              </div>
+              {emailSection}
+            </div>
             <div className='order__details-section'>
               <div className={'order__details-title ' + (edit ? 'order__details-title--edit' : '')}>
                 <p>Notes</p>
@@ -45,6 +71,12 @@ const OrderDetails = ({ handleChange, edit = true, textInput, notesInput, order,
                 <p>Address</p>
               </div>
               {addressSection}
+            </div>
+            <div className='order__details-section'>
+              <div className={'order__details-title ' + (edit ? 'order__details-title--edit' : '')}>
+                <p>Tracking</p>
+              </div>
+              {trackingSection}
             </div>
           </div>
         </div>

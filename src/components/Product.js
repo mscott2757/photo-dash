@@ -4,14 +4,11 @@ import DeleteConfirmation from './DeleteConfirmation';
 class Product extends Component {
   constructor(props) {
     super(props);
-
+    let { name, stock, price } = this.props.product;
     this.state = {
       edit: false,
       confirm: false,
-      data: {
-        name: this.props.product.name,
-        stock: this.props.product.stock
-      }
+      data: { name, stock, price }
     }
   }
 
@@ -25,10 +22,7 @@ class Product extends Component {
 
   handleChange = (e) => {
     this.setState({
-      data: {
-        ...this.state.data,
-        [e.target.name]: e.target.value
-      }
+      data: { ...this.state.data, [e.target.name]: e.target.value }
     });
   }
 
@@ -38,12 +32,13 @@ class Product extends Component {
   }
 
   render() {
-    const { product: { name, stock }, isFetching, handleDelete, odd } = this.props;
-    let nameSection, stockSection, actionsSection = null;
+    const { product: { name, stock, price }, isFetching, handleDelete, odd } = this.props;
+    let nameSection, stockSection, actionsSection, priceSection = null;
     let { edit, confirm } = this.state;
     if (edit) {
       nameSection = <input type='text' name='name' value={this.state.data.name} onChange={this.handleChange} />;
       stockSection = <input type='number' name='stock' value={this.state.data.stock} onChange={this.handleChange} />;
+      priceSection = <input type='number' name='price' value={this.state.data.price} onChange={this.handleChange} />;
       actionsSection = (
         <div className='actions'>
           <div className='action'>
@@ -57,6 +52,7 @@ class Product extends Component {
     } else {
       nameSection = <p>{name}</p>;
       stockSection = <p>{stock}</p>;
+      priceSection = <p>{price}</p>;
       actionsSection = (
         <div className='actions'>
           <div className='action'>
@@ -77,7 +73,7 @@ class Product extends Component {
         </div>
       );
     } else {
-      let sections = [ nameSection, stockSection, actionsSection ];
+      let sections = [ nameSection, stockSection, priceSection, actionsSection ];
       content = (
         <div className={'row product ' + (odd ? 'row--odd' : '')}>
           {sections.map((section, index) => <div key={index} className='section product__section'>{section}</div>)}

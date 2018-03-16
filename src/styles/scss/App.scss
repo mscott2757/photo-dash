@@ -2,6 +2,7 @@
 @import 'products';
 @import 'product';
 @import 'orders';
+@import 'login';
 @import 'order';
 @import 'shared';
 
@@ -19,7 +20,7 @@ p {
   font-size: 14px;
 }
 
-input[type='text'], input[type='number'] {
+input[type='text'], input[type='number'], input[type='password'] {
   border: 1px solid #eee;
   border-radius: 2px;
   width: 100%;

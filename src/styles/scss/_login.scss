@@ -1,0 +1,48 @@
+@import 'shared';
+
+.login-container {
+  display: flex;
+  justify-content: center;
+
+  .login {
+    width: 400px;
+    margin-top: 20px;
+
+    &--fetching {
+      display: flex;
+      justify-content: center;
+    }
+
+    input:first-child {
+      margin-bottom: 15px;
+    }
+
+    .login__err-message-container {
+      margin-top: 15px;
+      padding: 8px 10px;
+      background-color: $grey;
+      @include simple-border();
+      display: flex;
+      justify-content: space-between;
+
+      .login__err-message {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .login__submit {
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      button {
+        font-size: 14px;
+        background-color: $grey;
+        padding: 10px 40px;
+        @include simple-border();
+      }
+    }
+  }
+}

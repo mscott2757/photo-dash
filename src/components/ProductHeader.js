@@ -9,6 +9,9 @@ const ProductHeader = ({ handleToggleForm, formIsVisible }) => {
       <div className='product__section'>
         <p>Stock</p>
       </div>
+      <div className='product__section'>
+        <p>Price</p>
+      </div>
       <div className='product__section section--top-right'>
         <a href='/toggle-form' onClick={handleToggleForm}>{(formIsVisible ? '-' : '+')}</a>
       </div>

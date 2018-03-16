@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../shared';
 import { updateProduct } from './products';
-import { resHandler, errHandler } from './shared';
+import { resHandler, errHandler, axiosConfig } from './shared';
 
 export const REQUEST_ORDERS = 'REQUEST_ORDERS';
 export function requestOrders() {
@@ -21,7 +21,7 @@ export function receiveOrders(json) {
 export function fetchOrders() {
   return (dispatch) => {
     dispatch(requestOrders());
-    return axios.get(`${API_ENDPOINT}/orders`)
+    return axios.get(`${API_ENDPOINT}/orders`, axiosConfig)
     .then(resHandler, errHandler)
     .then(json => {
       dispatch(receiveOrders(json))
@@ -45,7 +45,7 @@ export function receiveUpdateOrder(json) {
 export function updateOrder(id, data) {
   return (dispatch) => {
     dispatch(requestUpdateOrder(id));
-    return axios.put(`${API_ENDPOINT}/orders/${id}`, data)
+    return axios.put(`${API_ENDPOINT}/orders/${id}`, data, axiosConfig)
     .then(resHandler, errHandler)
     .then(json => {
       dispatch(receiveUpdateOrder(json));
@@ -66,7 +66,7 @@ export function receiveDeleteOrder(id) {
 export function deleteOrder(id, product) {
   return dispatch => {
     dispatch(requestDeleteOrder(id));
-    return axios.delete(`${API_ENDPOINT}/orders/${id}`)
+    return axios.delete(`${API_ENDPOINT}/orders/${id}`, axiosConfig)
     .then(resHandler, errHandler)
     .then(json => {
       dispatch(receiveDeleteOrder(id));
@@ -92,7 +92,7 @@ export function createOrder(data) {
   let { product } = data;
   return dispatch => {
     dispatch(requestCreateOrder());
-    return axios.post(`${API_ENDPOINT}/orders`, data)
+    return axios.post(`${API_ENDPOINT}/orders`, data, axiosConfig)
     .then(resHandler, errHandler)
     .then((json) => {
       dispatch(receiveCreateOrder(json));

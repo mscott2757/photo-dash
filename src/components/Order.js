@@ -11,10 +11,10 @@ class Order extends Component {
     super(props);
     let {
       name: { first, last },
-      notes, address, city, state, zip, local, done
+      notes, address, city, state, zip, local, done, email
     } = props.order;
     this.state = {
-      data: { first, last, notes, done, address, city, state, zip, local },
+      data: { first, last, notes, done, address, city, state, zip, local, email },
       expanded: false, edit: false, confirm: false
     }
   }
@@ -61,9 +61,18 @@ class Order extends Component {
     />;
   }
 
-  notesInput = () => <textarea name='notes' value={this.state.data.notes} onChange={this.handleChange} />;
+  notesInput = () => {
+    return <textarea
+      name='notes'
+      placeholder='notes'
+      value={this.state.data.notes}
+      onChange={this.handleChange}
+    />;
+  }
 
-  localInput = () => <input name='local' type='checkbox' checked={this.state.data.local} onChange={this.handleChange} />;
+  localInput = () => {
+    return <input name='local' type='checkbox' checked={this.state.data.local} onChange={this.handleChange} />;
+  }
 
   render() {
     let {

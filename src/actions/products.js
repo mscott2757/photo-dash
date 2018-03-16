@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../shared';
-import { resHandler, errHandler } from './shared';
+import { resHandler, errHandler, axiosConfig } from './shared';
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export function requestProducts() {
@@ -20,7 +20,7 @@ export function receiveProducts(json) {
 export function fetchProducts() {
   return function (dispatch) {
     dispatch(requestProducts());
-    return axios.get(`${API_ENDPOINT}/products`)
+    return axios.get(`${API_ENDPOINT}/products`, axiosConfig)
       .then(resHandler, errHandler)
       .then(json =>
         dispatch(receiveProducts(json))
@@ -52,11 +52,11 @@ export function updateProduct(id, data) {
     dispatch(requestUpdateProduct(id));
     let productUrl = `${API_ENDPOINT}/products/${id}`;
     if (data !== undefined) {
-      return axios.put(productUrl, data)
+      return axios.put(productUrl, data, axiosConfig)
         .then(resHandler, errHandler)
         .then(receiveUpdate(dispatch));
     } else {
-      return axios.get(productUrl)
+      return axios.get(productUrl, axiosConfig)
         .then(resHandler, errHandler)
         .then(receiveUpdate(dispatch));
     }
@@ -76,7 +76,7 @@ export function receiveDeleteProduct(id) {
 export function deleteProduct(id) {
   return function (dispatch) {
     dispatch(requestDeleteProduct(id));
-    return axios.delete(`${API_ENDPOINT}/products/${id}`)
+    return axios.delete(`${API_ENDPOINT}/products/${id}`, axiosConfig)
     .then(resHandler, errHandler)
     .then((json) => {
       dispatch(receiveDeleteProduct(id));
@@ -100,7 +100,7 @@ export function receiveCreateProduct(json) {
 export function createProduct(data) {
   return function (dispatch) {
     dispatch(requestCreateProduct());
-    return axios.post(`${API_ENDPOINT}/products`, data)
+    return axios.post(`${API_ENDPOINT}/products`, data, axiosConfig)
     .then(resHandler, errHandler)
     .then((json) => {
       dispatch(receiveCreateProduct(json));
