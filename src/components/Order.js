@@ -6,6 +6,8 @@ import OrderActions from './OrderActions';
 import ContentFetching from './ContentFetching';
 import DeleteConfirmation from './DeleteConfirmation';
 
+import { textInput, notesInput, localInput, handleChange } from './utils';
+
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,10 @@ class Order extends Component {
       data: { first, last, notes, done, address, city, state, zip, local, email },
       expanded: false, edit: false, confirm: false
     }
+    this.textInput = textInput.bind(this);
+    this.notesInput = notesInput.bind(this);
+    this.localInput = localInput.bind(this);
+    this.handleChange = handleChange.bind(this);
   }
 
   toggleDetails = () => {
@@ -42,36 +48,6 @@ class Order extends Component {
 
   handleComplete= () => {
     this.props.handleUpdate({ ...this.state.data, product: this.props.order.product._id, done: true });
-  }
-
-  handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: value }
-    });
-  }
-
-  textInput = (field) => {
-    return <input
-      type='text'
-      placeholder={field}
-      name={field}
-      value={this.state.data[field]}
-      onChange={this.handleChange}
-    />;
-  }
-
-  notesInput = () => {
-    return <textarea
-      name='notes'
-      placeholder='notes'
-      value={this.state.data.notes}
-      onChange={this.handleChange}
-    />;
-  }
-
-  localInput = () => {
-    return <input name='local' type='checkbox' checked={this.state.data.local} onChange={this.handleChange} />;
   }
 
   render() {

@@ -3,6 +3,7 @@ import OrderName from './OrderName';
 import OrderType from './OrderType';
 import OrderActions from './OrderActions';
 import OrderDetails from './OrderDetails';
+import { textInput, notesInput, localInput, handleChange } from './utils';
 
 class NewOrder extends Component {
   constructor(props) {
@@ -22,38 +23,19 @@ class NewOrder extends Component {
         product: products.length > 0 ? products[0]._id : ''
       }
     }
-  }
-
-  handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: value }
-    }, () => {
-      console.log(this.state.data);
-    });
+    this.textInput = textInput.bind(this);
+    this.notesInput = notesInput.bind(this);
+    this.localInput = localInput.bind(this);
+    this.handleChange = handleChange.bind(this);
   }
 
   handleSubmit = () => {
     this.props.handleCreate(this.state.data);
   }
 
-  textInput = (field) => {
-    return <input
-      type='text'
-      placeholder={field}
-      name={field}
-      value={this.state.data[field]}
-      onChange={this.handleChange}
-    />;
-  }
-
   productOptions = () => {
     return this.props.products.filter(({ stock }) => stock > 0 );
   }
-
-  notesInput = () => <textarea name='notes' value={this.state.data.notes} onChange={this.handleChange} />;
-
-  localInput = () => <input name='local' type='checkbox' checked={this.state.data.local} onChange={this.handleChange} />;
 
   render() {
     let { first, last, local, product } = this.state.data;

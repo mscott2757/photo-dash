@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DeleteConfirmation from './DeleteConfirmation';
 
+import { handleChange, IconButton } from './utils';
+
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class Product extends Component {
       confirm: false,
       data: { name, stock, price }
     }
+    this.handleChange = handleChange.bind(this);
   }
 
   toggleEdit = () => {
@@ -18,12 +21,6 @@ class Product extends Component {
 
   toggleConfirm = () => {
     this.setState({ confirm: !this.state.confirm });
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value }
-    });
   }
 
   handleSubmit = () => {
@@ -42,10 +39,10 @@ class Product extends Component {
       actionsSection = (
         <div className='actions'>
           <div className='action'>
-            <button onClick={this.handleSubmit}><i className="fa fa-save"></i></button>
+            <IconButton handler={this.handleSubmit} icon='save' />
           </div>
           <div className='action'>
-            <button onClick={this.toggleEdit}><i className="fa fa-times"></i></button>
+            <IconButton handler={this.toggleEdit} icon='times' />
           </div>
         </div>
       );
@@ -56,10 +53,10 @@ class Product extends Component {
       actionsSection = (
         <div className='actions'>
           <div className='action'>
-            <button onClick={this.toggleEdit}><i className="fa fa-edit"></i></button>
+            <IconButton handler={this.toggleEdit} icon='edit' />
           </div>
           <div className='action'>
-            <button onClick={this.toggleConfirm}><i className="fa fa-trash"></i></button>
+            <IconButton handler={this.toggleConfirm} icon='trash' />
           </div>
         </div>
       );

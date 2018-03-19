@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { textInput, handleChange } from './utils';
 
 class Login extends Component {
   constructor(props) {
@@ -9,16 +10,12 @@ class Login extends Component {
         password: ''
       }
     }
+    this.textInput = textInput.bind(this);
+    this.handleChange = handleChange.bind(this);
   }
 
   componentDidMount() {
     this.props.validateUser();
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value }
-    });
   }
 
   handleSubmit = () => {
@@ -30,7 +27,7 @@ class Login extends Component {
   }
 
   render() {
-    let { username, password } = this.state.data;
+    let { password } = this.state.data;
     let { errMessage, hasErred, isFetching } = this.props;
 
     let message = null;
@@ -55,7 +52,7 @@ class Login extends Component {
     return (
       <div className='login-container'>
         <div className='login'>
-          <input type='text' placeholder='username' name='username' value={username} onChange={this.handleChange} />
+          {this.textInput('username')}
           <input type='password' placeholder='password' name='password' value={password} onChange={this.handleChange} />
           {message}
           <div className='login__submit'>
