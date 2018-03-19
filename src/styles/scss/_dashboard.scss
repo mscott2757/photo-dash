@@ -1,0 +1,20 @@
+.dashboard {
+  margin-bottom: 50px;
+  .dashboard__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    h2 {
+      margin: 0;
+    }
+
+    button {
+      background-color: $grey;
+      padding: 2px 10px;
+      @include simple-border();
+      height: 30px;
+    }
+  }
+}

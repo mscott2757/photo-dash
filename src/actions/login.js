@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../shared';
-import { axiosConfig } from './shared';
+import { errHandler, axiosConfig } from './shared';
+import { setUser } from '../cookies';
+import history from '../history';
 
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export function requestLogin() {
@@ -25,17 +27,22 @@ export function clearLoginErr() {
   return { type: CLEAR_LOGIN_ERR }
 }
 
-export function login(data) {
+export function login({ data }) {
   return dispatch => {
     dispatch(requestLogin());
     return axios.post(`${API_ENDPOINT}/login`, data, axiosConfig)
       .then(
         (res) => {
-          dispatch(receiveLogin());
+          if (res.data.success) {
+            dispatch(receiveLogin());
+            setUser(res.data);
+            history.push('/');
+          } else {
+            dispatch(receiveLoginErr(res.data));
+          }
         },
-        (err) => {
-          dispatch(receiveLoginErr(err.response.data));
-        }
-      )
+        errHandler
+      );
   }
 }
+

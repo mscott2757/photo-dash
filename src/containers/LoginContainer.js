@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import Login from '../components/Login';
 import { login, clearLoginErr } from '../actions/login';
+import { withRouter } from 'react-router-dom';
+import { validateUserLogin } from '../actions/validation';
+import { getUser } from '../cookies';
 
 const mapStateToProps = ({ login }) => {
   return {
@@ -17,6 +20,10 @@ const mapDispatchToProps = dispatch => {
     },
     handleClear: () => {
       dispatch(clearLoginErr());
+    },
+    validateUser: () => {
+      let userId = getUser();
+      dispatch(validateUserLogin({ _id: userId }));
     }
   }
 }
@@ -26,4 +33,4 @@ const LoginContainer = connect(
   mapDispatchToProps
 )(Login);
 
-export default LoginContainer;
+export default withRouter(LoginContainer);

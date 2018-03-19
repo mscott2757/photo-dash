@@ -11,6 +11,10 @@ class Login extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.validateUser();
+  }
+
   handleChange = (e) => {
     this.setState({
       data: { ...this.state.data, [e.target.name]: e.target.value }
@@ -18,7 +22,7 @@ class Login extends Component {
   }
 
   handleSubmit = () => {
-    this.props.handleSubmit(this.state.data);
+    this.props.handleSubmit({ data: this.state.data });
   }
 
   handleClear = () => {

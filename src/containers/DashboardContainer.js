@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
-import { fetchProducts } from '../actions/products';
-import { fetchOrders } from '../actions/orders';
 import Dashboard from '../components/Dashboard';
+import { withRouter } from 'react-router-dom';
+import { validateUserDashboard } from '../actions/validation';
+import { getUser } from '../cookies';
 
-const mapStateToProps = state => {
-  return {}
+const mapStateToProps = ({ validation }) => {
+  return { ...validation }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => {
-      dispatch(fetchProducts());
-      dispatch(fetchOrders());
+    validateUser: () => {
+      let userId = getUser();
+      dispatch(validateUserDashboard({ _id: userId }));
     }
   }
 }
@@ -21,4 +22,4 @@ const DashboardContainer = connect(
   mapDispatchToProps
 )(Dashboard);
 
-export default DashboardContainer;
+export default withRouter(DashboardContainer);

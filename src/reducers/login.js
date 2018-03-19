@@ -2,11 +2,13 @@ import {
   REQUEST_LOGIN,
   RECEIVE_LOGIN,
   RECEIVE_LOGIN_ERR,
-  CLEAR_LOGIN_ERR
+  CLEAR_LOGIN_ERR,
 } from '../actions/login';
 
 const login = (state = {
   isFetching: false,
+  isFetchingValidation: false,
+  isLoggedIn: false,
   hasErrored: false,
   errMessage: ''
 }, action) => {
