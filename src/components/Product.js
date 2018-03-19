@@ -67,7 +67,7 @@ class Product extends Component {
     let content = null;
     if (isFetching) {
       content = (
-        <div className={'row--fetching' + (odd ? 'row--odd' : '')}>
+        <div className={'row--fetching ' + (odd ? 'row--odd' : '')}>
           <IconSpinner />
         </div>
       );
