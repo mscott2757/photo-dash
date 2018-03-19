@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { textInput, handleChange } from './utils';
+import { IconButton, IconSpinner, textInput, handleChange } from './utils';
 
 class Login extends Component {
   constructor(props) {
@@ -36,15 +36,13 @@ class Login extends Component {
         <div className='login__err-message'>
           <p>{errMessage}</p>
         </div>
-        <button onClick={this.handleClear}>
-          <i className='fa fa-times'></i>
-        </button>
+        <IconButton handler={this.handleClear} icon='times' />
       </div>;
     }
 
     let submitButton = null;
     if (isFetching) {
-      submitButton = <div><i className="fa fa-circle-o-notch fa-spin"></i></div>;
+      submitButton = <IconSpinner />
     } else {
       submitButton = <button onClick={this.handleSubmit}>Login</button>;
     }

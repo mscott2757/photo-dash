@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconButton } from './utils';
 
 const DeleteConfirmation = ({ confirm, odd, handleDelete, toggleConfirm }) => {
   if (confirm) {
@@ -7,10 +8,10 @@ const DeleteConfirmation = ({ confirm, odd, handleDelete, toggleConfirm }) => {
         <div className='confirmation__actions'>
           <p>Confirm Delete</p>
           <div className='action'>
-            <button onClick={handleDelete}><i className="fa fa-check"></i></button>
+            <IconButton handler={handleDelete} icon='check' />
           </div>
           <div className='action'>
-            <button onClick={toggleConfirm}><i className="fa fa-times"></i></button>
+            <IconButton handler={toggleConfirm} icon='times' />
           </div>
         </div>
       </div>

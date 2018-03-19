@@ -3,10 +3,9 @@ import OrderDetails from './OrderDetails';
 import OrderName from './OrderName';
 import OrderType from './OrderType';
 import OrderActions from './OrderActions';
-import ContentFetching from './ContentFetching';
 import DeleteConfirmation from './DeleteConfirmation';
 
-import { textInput, notesInput, localInput, handleChange } from './utils';
+import { IconSpinner, textInput, notesInput, localInput, handleChange } from './utils';
 
 class Order extends Component {
   constructor(props) {
@@ -62,7 +61,7 @@ class Order extends Component {
 
     let content = null;
     if (isFetching) {
-      content = <ContentFetching isFetching={isFetching} />
+      content = <IconSpinner className='row--fetching' />
     } else {
       const actionsProps = {
         done, edit, expanded, toggleDetails, toggleEdit, handleSubmit, handleComplete, toggleConfirm

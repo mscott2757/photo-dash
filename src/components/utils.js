@@ -10,6 +10,15 @@ export function textInput(field) {
   />;
 }
 
+export function numberInput(field) {
+  return <input
+    placeholder={field}
+    type='number'
+    name={field}
+    value={this.state.data[field]}
+    onChange={this.handleChange} />;
+}
+
 export function notesInput() {
   return <textarea
     name='notes'
@@ -37,3 +46,20 @@ export const IconButton = ({ handler, icon }) => {
     </button>
   );
 }
+
+export const IconSpinner = ({ className = '' }) => {
+  return (
+    <div className={className}>
+      <i className="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+  );
+}
+
+export const ColumnTitle = ({ className = '', title }) => {
+  return (
+    <div className={className}>
+      <p>{title}</p>
+    </div>
+  );
+}
+

@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconButton } from './utils';
 
 const OrderActions = ({
   edit = true,
@@ -19,12 +20,10 @@ const OrderActions = ({
 
   return (
     <div className='actions'>
-      {activeActions.map(({ handler, icon }, index) => {
+      {activeActions.map((action, index) => {
         return (
           <div className='action' key={index}>
-            <button onClick={handler}>
-              <i className={`fa fa-${icon}`}></i>
-            </button>
+            <IconButton { ...action } />
           </div>
         );
       })}

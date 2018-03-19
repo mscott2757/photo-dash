@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DeleteConfirmation from './DeleteConfirmation';
 
-import { handleChange, IconButton } from './utils';
+import { handleChange, IconButton, IconSpinner, textInput, numberInput } from './utils';
 
 class Product extends Component {
   constructor(props) {
@@ -13,6 +13,8 @@ class Product extends Component {
       data: { name, stock, price }
     }
     this.handleChange = handleChange.bind(this);
+    this.textInput = textInput.bind(this);
+    this.numberInput = numberInput.bind(this);
   }
 
   toggleEdit = () => {
@@ -33,9 +35,9 @@ class Product extends Component {
     let nameSection, stockSection, actionsSection, priceSection = null;
     let { edit, confirm } = this.state;
     if (edit) {
-      nameSection = <input type='text' name='name' value={this.state.data.name} onChange={this.handleChange} />;
-      stockSection = <input type='number' name='stock' value={this.state.data.stock} onChange={this.handleChange} />;
-      priceSection = <input type='number' name='price' value={this.state.data.price} onChange={this.handleChange} />;
+      nameSection = this.textInput('name');
+      stockSection = this.numberInput('stock');
+      priceSection = this.numberInput('price');
       actionsSection = (
         <div className='actions'>
           <div className='action'>
@@ -66,7 +68,7 @@ class Product extends Component {
     if (isFetching) {
       content = (
         <div className={'row--fetching' + (odd ? 'row--odd' : '')}>
-          <div><i className="fa fa-circle-o-notch fa-spin"></i></div>
+          <IconSpinner />
         </div>
       );
     } else {

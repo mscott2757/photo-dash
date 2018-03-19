@@ -2,7 +2,7 @@ import React from 'react';
 import Order from './Order';
 import NewOrder from './NewOrder';
 import OrderHeader from './OrderHeader';
-import ContentFetching from './ContentFetching';
+import { IconSpinner } from './utils';
 
 const Orders = ({
   orders, products, isFetching,
@@ -11,7 +11,7 @@ const Orders = ({
 }) => {
   let body = null;
   if (isFetching) {
-    body = <ContentFetching />;
+    body = <IconSpinner className='row--fetching' />;
   } else {
     const headerProps = { handleToggleForm, formIsVisible };
     const newOrderProps = { handleCreate: handleCreateOrder, toggleForm: handleToggleForm, products, formIsVisible };

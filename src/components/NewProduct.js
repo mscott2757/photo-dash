@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
+import { IconButton, textInput, numberInput, handleChange } from './utils';
 
 class NewProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      stock: ''
+      data: {
+        name: '',
+        stock: '',
+        price: ''
+      }
     }
-  }
-
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.textInput = textInput.bind(this);
+    this.numberInput = numberInput.bind(this);
+    this.handleChange = handleChange.bind(this);
   }
 
   handleSubmit = () => {
-    let { name, stock } = this.state;
-    this.props.handleCreate({ name, stock });
+    this.props.handleCreate(this.state.data);
   }
 
   render() {
@@ -23,18 +25,21 @@ class NewProduct extends Component {
       <div className={'product' + (this.props.formIsVisible ? '' : ' product--hidden')}>
         <div className='row'>
           <div className='section product__section'>
-            <input placeholder='name' type='text' name='name' value={this.state.name} onChange={this.handleChange} />
+            {this.textInput('name')}
           </div>
           <div className='section product__section'>
-            <input placeholder='stock' type='number' name='stock' value={this.state.stock} onChange={this.handleChange} />
+            {this.numberInput('stock')}
+          </div>
+          <div className='section product__section'>
+            {this.numberInput('price')}
           </div>
           <div className='section product__section'>
             <div className='actions'>
               <div className='action'>
-                <button onClick={this.handleSubmit}><i className="fa fa-save"></i></button>
+                <IconButton handler={this.handleSubmit} icon='save' />
               </div>
               <div className='action'>
-                <button onClick={this.props.toggleForm}><i className="fa fa-times"></i></button>
+                <IconButton handler={this.props.toggleForm} icon='times' />
               </div>
             </div>
           </div>
