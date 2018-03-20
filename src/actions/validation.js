@@ -27,7 +27,11 @@ const fetchData = (dispatch) => {
 
 export function validateUserDashboard(data) {
   return dispatch => {
-    return axios.post(`${API_ENDPOINT}/validate`, data, axiosConfig)
+    return axios(`${API_ENDPOINT}/validate`, {
+      method: 'post',
+      data,
+      withCredentials: true
+    })
       .then(
         (res) => {
           if (res.data.success) {
