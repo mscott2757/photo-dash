@@ -2,6 +2,8 @@ import axios from 'axios';
 import { API_ENDPOINT } from '../shared';
 import { resHandler, errHandler, axiosConfig } from './shared';
 
+axios.defaults.withCredentials = true;
+
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export function requestProducts() {
   return { type: REQUEST_PRODUCTS }

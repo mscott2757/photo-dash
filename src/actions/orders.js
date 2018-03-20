@@ -3,6 +3,8 @@ import { API_ENDPOINT } from '../shared';
 import { updateProduct } from './products';
 import { resHandler, errHandler, axiosConfig } from './shared';
 
+axios.defaults.withCredentials = true;
+
 export const REQUEST_ORDERS = 'REQUEST_ORDERS';
 export function requestOrders() {
   return { type: REQUEST_ORDERS }
