@@ -1,12 +1,10 @@
 import axios from 'axios';
-
 import { API_ENDPOINT } from '../shared';
 import { axiosConfig, errHandler } from './shared';
 import { fetchProducts } from '../actions/products';
 import { fetchOrders } from '../actions/orders';
 import history from '../history';
 
-axios.defaults.withCredentials = true;
 export const REQUEST_USER_VALIDATION = 'REQUEST_USER_VALIDATION';
 export function requestUserValidation() {
   return { type: REQUEST_USER_VALIDATION }
@@ -29,11 +27,7 @@ const fetchData = (dispatch) => {
 
 export function validateUserDashboard(data) {
   return dispatch => {
-    return axios(`${API_ENDPOINT}/validate`, {
-      method: 'post',
-      data,
-      withCredentials: true
-    })
+    return axios.post(`${API_ENDPOINT}/validate`, data, axiosConfig)
       .then(
         (res) => {
           if (res.data.success) {
