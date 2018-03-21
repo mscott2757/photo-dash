@@ -20,7 +20,8 @@ const Orders = ({
         <OrderHeader {...headerProps} />
         <NewOrder {...newOrderProps} />
         {orders.map((order, index) => {
-          let { _id, product: { _id: productId }} = order;
+          let { _id } = order;
+          let productId = order.product ? order.product._id : null;
           return <Order
             key={_id}
             order={order}
