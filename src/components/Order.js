@@ -4,6 +4,7 @@ import OrderName from './OrderName';
 import OrderType from './OrderType';
 import OrderActions from './OrderActions';
 import DeleteConfirmation from './DeleteConfirmation';
+import classNames from 'classnames';
 
 import { IconSpinner, textInput, notesInput, localInput, handleChange } from './utils';
 
@@ -82,8 +83,9 @@ class Order extends Component {
 
     const confirmationProps = { odd, confirm, handleDelete, toggleConfirm };
     const detailsProps = { edit, expanded, handleChange, textInput, notesInput, order: this.props.order }
+    const orderClass = classNames('order', { 'row--odd': odd });
     return (
-      <div className={'order ' + (odd ? 'row--odd' : '')}>
+      <div className={orderClass}>
         <DeleteConfirmation {...confirmationProps} />
         <div className='order__summary'>
           {content}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DeleteConfirmation from './DeleteConfirmation';
+import classNames from 'classnames';
 
 import { handleChange, IconButton, IconSpinner, textInput, numberInput } from './utils';
 
@@ -19,8 +20,7 @@ class Product extends Component {
 
   toggleEdit = () => {
     this.setState({ edit: !this.state.edit });
-  }
-
+  } 
   toggleConfirm = () => {
     this.setState({ confirm: !this.state.confirm });
   }
@@ -66,23 +66,20 @@ class Product extends Component {
 
     let content = null;
     if (isFetching) {
-      content = (
-        <div className={'row--fetching ' + (odd ? 'row--odd' : '')}>
-          <IconSpinner />
-        </div>
-      );
+      content = <IconSpinner className='row row--fetching'/>;
     } else {
       let sections = [ nameSection, stockSection, priceSection, actionsSection ];
       content = (
-        <div className={'row product ' + (odd ? 'row--odd' : '')}>
+        <div className='row'>
           {sections.map((section, index) => <div key={index} className='section product__section'>{section}</div>)}
         </div>
       );
     }
 
     const confirmationProps = { odd, confirm, handleDelete, toggleConfirm: this.toggleConfirm };
+    const productClass = classNames('product', { 'row--odd': odd });
     return (
-      <div className='product'>
+      <div className={productClass}>
         <DeleteConfirmation {...confirmationProps} />
         {content}
       </div>
